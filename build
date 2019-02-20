@@ -1,0 +1,5 @@
+#!/bin/bash
+
+gcc -g -std=c99 main.c colors.c stretchybuffer.c parsing.c language.c -o multilect
+
+chmod 755 multilect
