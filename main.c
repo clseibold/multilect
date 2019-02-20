@@ -162,7 +162,7 @@ void printBullet(Line *lines, unsigned int line, unsigned int contentWidth, unsi
 		++col;
 		printf("%c", c);
 		
-		if (col >= contentWidth) {
+		if (col >= contentWidth && i + 1 < buf_len(lineChars)) {
 			printf("\n");
 			printIndent(indent);
 			printf("  "); // To align-up with start of text of bullet
@@ -222,7 +222,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 				printf("%c", c);
 			}
 			
-			if (col >= contentWidth) {
+			if (col >= contentWidth && i + 1 < buf_len(lineChars)) {
 				printf("\n");
 				printIndent(indent);
 				col = 0;
