@@ -200,6 +200,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 	bool bold = false;
 	bool italics = false;
 	bool strikethrough = false;
+	bool code = false;
 	char *current = NULL;
 	
 	unsigned int col = 0;
@@ -214,12 +215,14 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 				italics = !italics;
 			else if (c == '*' && (i + 1 != buf_len(lineChars) - 1 || lineChars[i + 1] == '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				bold = !bold;
+			else if (c == '`') code = !code;
 			else if (c == '\n' || c == '\r') {
 				printf(" ");
 				++col;
 			} else {
 				++col;
 				if (bold) printf("\e[1m");
+				if (code) printf("\e[2;36m");
 				printf("%c", c);
 				printf("\e[0m");
 			}
