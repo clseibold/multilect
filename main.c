@@ -219,7 +219,9 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 				++col;
 			} else {
 				++col;
+				if (bold) printf("\e[1m");
 				printf("%c", c);
+				printf("\e[0m");
 			}
 			
 			if (col >= contentWidth && i + 1 < buf_len(lineChars)) {
