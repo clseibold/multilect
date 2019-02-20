@@ -85,7 +85,7 @@ TermSize getTermSize() {
 #endif
 
 typedef enum LineType {
-	BLANK, PARAGRAPH, HEADING, UL, OL, CODE, TABLE, BLOCKQUOTE, HRULE
+	BLANK, PARAGRAPH, HEADING, UL, OL, CODE, TABLE, BLOCKQUOTE, HRULE, OTHER
 } LineType;
 
 typedef struct Line {
@@ -363,6 +363,10 @@ int main(int argc, char **argv) {
 					} else {
 						fseek(fp, -1, SEEK_CUR);
 					}
+				} else if (c == '[') {
+					// Hack so that multilect works slightly better for vf1
+					// text/plain handler, for now...
+					currentLineType = OTHER;
 				}
 			}
 			

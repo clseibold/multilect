@@ -124,3 +124,9 @@ To run the release executable, on Windows run `build run release`.
 Any command that accepts a line number or line range - denoted by `(line#:start):(line#:end)` - can also accept a bookmark. Bookmarks are prefixed with `#`. Example: `P #test`.
 
 
+
+[1] Test
+[2] Testing2
+[3] Testing3
+
+[4] Testing4
