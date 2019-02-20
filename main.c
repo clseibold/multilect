@@ -219,6 +219,13 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			else if (c == '\n' || c == '\r') {
 				printf(" ");
 				++col;
+			} else if (c == '<' && lineChars[i + 1] == 'b' && lineChars[i + 2] == 'r' && lineChars[i + 3] == '>') {
+				printf("\n");
+				printIndent(indent);
+				col = 0;
+				i += 3;
+				// Skip new line so that line doesn't start with space
+				if (lineChars[i + 1] == '\n') i++;
 			} else {
 				++col;
 				if (bold) printf("\e[1m");

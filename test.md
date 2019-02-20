@@ -1,7 +1,7 @@
 **Note: EdimCoder has been moved from GitHub (and Git) to Pijul's The Nest (and Pijul VCS). You can see the old Git history in gitlog.log or from the GitHub repo here: https://github.com/krixano/Edim**
 
 # Edim Line Editor
-A simple interactive line editor program inspired by vim, ed, 4coder, and modern editors.
+A simple interactive line editor program inspired by vim, ed, 4coder, and modern editors.<br>
 This readme was written using Edim.
 
 ## Building and Running
