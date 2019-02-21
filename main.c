@@ -94,6 +94,35 @@ typedef struct Line {
 	unsigned int nest;
 } Line;
 
+char char_backward(Line *lines, unsigned int *currentLine, unsigned int *currentIndex, int amt) {
+	unsigned int backwardIndex = *currentIndex - amt;
+	
+	if (backwardIndex >= 0) {
+		(*currentIndex) = backwardIndex;
+		return lines[*currentLine].chars[backwardIndex];
+	} else {
+		do {
+			(*currentLine) -= 1;
+			backwardIndex += buf_len(lines[*currentLine].chars);
+		} while (backwardIndex < 0);
+		
+		(*currentIndex) = backwardIndex;
+		return lines[*currentLine].chars[backwardIndex];
+	}
+}
+
+char char_forward(Line *lines, unsigned int *currentLine, unsigned int *currentIndex, int amt) {
+	unsigned int forwardIndex = (*currentIndex) + amt;
+	
+	while (forwardIndex >= buf_len(lines[*currentLine].chars)) {
+		forwardIndex -= buf_len(lines[*currentLine].chars);
+		(*currentLine) += 1;
+	}
+	
+	(*currentIndex) = forwardIndex;
+	return lines[*currentLine].chars[forwardIndex];
+}
+
 void printIndent(unsigned int indent) {
 	for (int i = 0; i < indent; i++) {
 		printf(" ");
@@ -205,8 +234,8 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 	
 	unsigned int col = 0;
 	printIndent(indent);
-	for (int i = lineStart; i <= lineEnd; i++) {
-		char *lineChars = lines[i].chars;
+	for (int line = lineStart; line <= lineEnd; line++) {
+		char *lineChars = lines[line].chars;
 		
 		for (unsigned int i = 0; i < buf_len(lineChars); i++) {
 			char c = lineChars[i];
@@ -219,16 +248,22 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			else if ((c == ' ' || c == '\t') && (i + 1 < buf_len(lineChars) && lineChars[i + 1] != ' ' && lineChars[i + 1] != '\t' && lineChars[i + 1] != '\n' && lineChars[i + 1] != '\r')) {
 				// Word wrapping
 				// Search for next whitespace
-				unsigned int current = i + 1;
-				while (lineChars[current] != ' ' && lineChars[current] != '\t' && lineChars[current] != '\n' && lineChars[current] != '\r') current++;
-				--current;
+				unsigned int length = 1;
+				unsigned int currentIndex = i;
+				unsigned int currentLine = line;
+				char temp_c;
+				while ((temp_c = char_forward(lines, &currentLine, &currentIndex, 1)) != ' ' && temp_c != '\t') {
+					if (currentLine > lineEnd) break;
+					if (temp_c != '\n' && temp_c != '\r') ++length;
+				}
+				--length;
 				
-//				printf("Word Length: %d\n", current - i + 1);
-//				printf("Word: '%.*s'\n", current - i + 1, lineChars + i);
-				if (col + (current - i) >= contentWidth) {
-					printf("\n");
+				if (col + length >= contentWidth) {
+					printf("$\n");
 					printIndent(indent);
 					col = 0;
+				} else if (col == 0) {
+					continue;
 				} else {
 					printf("%c", c);
 					++col;
@@ -253,7 +288,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			}
 			
 			if (col >= contentWidth && i + 1 < buf_len(lineChars)) {
-				printf("\n");
+				printf("^\n");
 				printIndent(indent);
 				col = 0;
 			}
