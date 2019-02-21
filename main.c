@@ -216,10 +216,28 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			else if (c == '*' && (i + 1 != buf_len(lineChars) - 1 || lineChars[i + 1] == '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				bold = !bold;
 			else if (c == '`') code = !code;
+			else if ((c == ' ' || c == '\t') && (i + 1 < buf_len(lineChars) && lineChars[i + 1] != ' ' && lineChars[i + 1] != '\t' && lineChars[i + 1] != '\n' && lineChars[i + 1] != '\r')) {
+				// Word wrapping
+				// Search for next whitespace
+				unsigned int current = i + 1;
+				while (lineChars[current] != ' ' && lineChars[current] != '\t' && lineChars[current] != '\n' && lineChars[current] != '\r') current++;
+				--current;
+				
+//				printf("Word Length: %d\n", current - i + 1);
+//				printf("Word: '%.*s'\n", current - i + 1, lineChars + i);
+				if (col + (current - i) >= contentWidth) {
+					printf("\n");
+					printIndent(indent);
+					col = 0;
+				} else {
+					printf("%c", c);
+					++col;
+				}
+			}
 			else if (c == '\n' || c == '\r') {
 				printf(" ");
 				++col;
-			} else if (c == '<' && lineChars[i + 1] == 'b' && lineChars[i + 2] == 'r' && lineChars[i + 3] == '>') {
+			} else if (c == '<' && lineChars[i + 1] == 'b' && lineChars[i + 2] == 'r' && lineChars[i + 3] == '>') { // TODO: Check that i + 1 is within bounds first
 				printf("\n");
 				printIndent(indent);
 				col = 0;
