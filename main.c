@@ -240,12 +240,16 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 		for (unsigned int i = 0; i < buf_len(lineChars); i++) {
 			char c = lineChars[i];
 			
+			unsigned int tmp_line = line;
+			unsigned int tmp_i = i;
+			char next_c = char_forward(lines, &tmp_line, &tmp_i, 1);
+			bool next_c_inBounds = tmp_line <= lineEnd;
 			if (c == '*' && (i + 1 == buf_len(lineChars) - 1 || lineChars[i + 1] != '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				italics = !italics;
 			else if (c == '*' && (i + 1 != buf_len(lineChars) - 1 || lineChars[i + 1] == '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				bold = !bold;
 			else if (c == '`') code = !code;
-			else if ((c == ' ' || c == '\t') && (i + 1 < buf_len(lineChars) && lineChars[i + 1] != ' ' && lineChars[i + 1] != '\t' && lineChars[i + 1] != '\n' && lineChars[i + 1] != '\r')) {
+			else if ((c == ' ' || c == '\t') && next_c_inBounds && (next_c != ' ' && next_c != '\t' && next_c != '\n' && next_c != '\r')) {
 				// Word wrapping
 				// Search for next whitespace
 				unsigned int length = 1;
