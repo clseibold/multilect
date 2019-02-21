@@ -250,7 +250,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			else if (c == '*' && (i + 1 != buf_len(lineChars) - 1 || lineChars[i + 1] == '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				bold = !bold;
 			else if (c == '`') code = !code;
-			else if ((c == ' ' || c == '\t') && next_c_inBounds && (next_c != ' ' && next_c != '\t' && next_c != '\n' && next_c != '\r')) {
+			else if ((c == ' ' || c == '\t' || c == '\n' || c == '\r') && next_c_inBounds && (next_c != ' ' && next_c != '\t' && next_c != '\n' && next_c != '\r')) {
 				// Word wrapping
 				// Search for next whitespace
 				unsigned int length = 1;
@@ -264,13 +264,14 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 				--length;
 				
 				if (col + length >= contentWidth) {
-					printf("$\n");
+					printf("\n");
 					printIndent(indent);
 					col = 0;
 				} else if (col == 0) {
 					continue;
 				} else {
-					printf("%c", c);
+					if (c == '\n' || c == '\t') printf(" ");
+					else printf("%c", c);
 					++col;
 				}
 			}
@@ -293,7 +294,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			}
 			
 			if (col >= contentWidth && i + 1 < buf_len(lineChars)) {
-				printf("^\n");
+				printf("\n");
 				printIndent(indent);
 				col = 0;
 			}

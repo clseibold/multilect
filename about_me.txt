@@ -1,0 +1,39 @@
+       __             __             
+ ___ _/ /  ___  __ __/ /_  __ _  ___ 
+/ _ `/ _ \/ _ \/ // / __/ /  ' \/ -_)
+\_,_/_.__/\___/\_,_/\__/ /_/_/_/\__/
+
+Hello! I am a 21 year old developer currently going to university for
+a Computer Science Bachelor's degree. My interests span across many
+different areas, including computers, writing poetry, reading, and
+conlanging. I am very involved in the ZeroNet community[1] (a
+decentralized and distributed web alternative). I am also somewhat
+involved in the Handmade Network community[2]. Below are some facts
+about me:
+
+* Just Came Out on C.S. and Gopherspace as gay. Not completely out yet.
+* Favorite color: Blue
+* Favorite Text Editor: Vim, EdimCoder, Chalk (by Sloum)
+* Favorite Conlang: Lojban
+* Favorite Poems: 'Annabel Lee' by Edgar Allen Poe and 'anyone lived in a
+pretty how town' by E. E. Cummings
+* Favorite Song(s): 'Hellelujah' by Leonard Cohen and 'No Matter What' by
+Calum Scott
+* Favorite OS: Haiku[3]
+* Least Favorite Software: Windows 10, Modern Web Browsers, Microsoft
+Office
+* Birthday: January 18, 1998
+
+                __           __             
+ _______  ___  / /____ _____/ /_  __ _  ___ 
+/ __/ _ \/ _ \/ __/ _ `/ __/ __/ /  ' \/ -_)
+\__/\___/_//_/\__/\_,_/\__/\__/ /_/_/_/\__/ 
+
+Email 1: krixano@outlook.com
+Email 2: krixano@gmail.com
+Email 3: krixano@protonmail.com
+
+
+[1] https://zeronet.io/
+[2] https://handmade.network/
+[3] https://www.haiku-os.org
