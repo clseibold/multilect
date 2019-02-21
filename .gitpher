@@ -1,0 +1,4 @@
+[gitpher]
+short_descr = terminal file reader for markdown files (and more in the future)
+description = terminal text file reader that will automatically reflow the text to provide a better reading experience for markdown files (and more in the future).
+patch_email = krixano@outlook.com
