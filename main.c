@@ -252,7 +252,7 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 				unsigned int currentIndex = i;
 				unsigned int currentLine = line;
 				char temp_c;
-				while ((temp_c = char_forward(lines, &currentLine, &currentIndex, 1)) != ' ' && temp_c != '\t') {
+				while ((temp_c = char_forward(lines, &currentLine, &currentIndex, 1)) != ' ' && temp_c != '\t' && temp_c != '\n' && temp_c != '\r') {
 					if (currentLine > lineEnd) break;
 					if (temp_c != '\n' && temp_c != '\r') ++length;
 				}
