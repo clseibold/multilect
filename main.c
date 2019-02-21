@@ -242,8 +242,9 @@ void printParagraph(Line *lines, int lineStart, int lineEnd, unsigned int conten
 			
 			unsigned int tmp_line = line;
 			unsigned int tmp_i = i;
-			char next_c = char_forward(lines, &tmp_line, &tmp_i, 1);
-			bool next_c_inBounds = tmp_line <= lineEnd;
+			char next_c;
+			while ((next_c = char_forward(lines, &tmp_line, &tmp_i, 1)) == '\n' || next_c == '\r') ;
+			bool next_c_inBounds = (tmp_line <= lineEnd);
 			if (c == '*' && (i + 1 == buf_len(lineChars) - 1 || lineChars[i + 1] != '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
 				italics = !italics;
 			else if (c == '*' && (i + 1 != buf_len(lineChars) - 1 || lineChars[i + 1] == '*') && (i - 1 >= 0 || lineChars[i - 1] != '*'))
